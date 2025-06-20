@@ -81,10 +81,18 @@ button {
     border-radius: var(--rounded-corners);
 }
 
+button:active {
+    box-shadow: inset 2px 2px 6px 0px #000000;
+}
+
 #ac {
     background-color: #f1f7b5;
 }
 
 #del {
     background-color: #fd8a8a;
+}
+
+button[disabled]:active {
+    box-shadow: none;
 }
