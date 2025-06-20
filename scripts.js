@@ -26,19 +26,16 @@ function operate(a, b, operator) {
     };
 };
 
-const input = document.querySelector("input");
+const input = document.querySelector("#input");
 
 function addToInput(x) {
-    input.value += x;
+    input.textContent += x;
 };
 
-const buttons = document.querySelectorAll("button");
+const digitButtons = document.querySelectorAll(".digit-button, .operation");
 
-buttons.forEach((button) => {
-    button.addEventListener("click", () => {
-        addToInput(self.textContent);
+digitButtons.forEach((button) => {
+    button.addEventListener("click", (e) => {
+        addToInput(e.target.textContent);
     });
-    if (!button.hasOwn("disabled")) {
-        
-    };
 });
