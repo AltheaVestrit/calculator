@@ -25,3 +25,20 @@ function operate(a, b, operator) {
         return divide(a, b);
     };
 };
+
+const input = document.querySelector("input");
+
+function addToInput(x) {
+    input.value += x;
+};
+
+const buttons = document.querySelectorAll("button");
+
+buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+        addToInput(self.textContent);
+    });
+    if (!button.hasOwn("disabled")) {
+        
+    };
+});

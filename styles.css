@@ -54,21 +54,15 @@ body {
     gap: 2px;
 }
 
-input {
-    border: none;
-    height: 50%;
-    text-align: right;
+#input {
     color: rgb(109, 109, 109);
 }
 
-#result {
+#result, #input {
     height: 50%;
     display: flex;
     justify-content: flex-end;
     align-items: center;
-}
-
-input, #result {
     font-size: 20px;
     box-sizing: border-box;
 }
