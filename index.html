@@ -3,15 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Calculator</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div id="container">
-        <input type="text">
+        <div id="display" class="row">
+            <input type="text" value="3 + 4">
+            <div id="result">7</div>
+        </div>
+        
         <div class="row">
             <button id="ac">AC</button>
-            <button id="del" disabled>DEL</button>
+            <button id="del">DEL</button>
         </div>
         <div class="row">
             <button id="7">7</button>
@@ -32,7 +36,7 @@
             <button id="substract">-</button>
         </div>
         <div class="row">
-            <button id="decimal" disabled>.</button>
+            <button id="decimal">.</button>
             <button id="0">0</button>
             <button id="equal">=</button>
             <button id="add">+</button>

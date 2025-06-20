@@ -1,0 +1,90 @@
+* {
+    margin: 0;
+    padding: 0;
+
+    --rounded-corners: 5px;
+    --border-style: 1px solid black;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    padding: 32px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#container {
+    --container-width : 360px;
+    --container-height: 480px;
+    --container-padding: 24px;
+    --container-gap: 16px;
+
+    background-color: rgb(195, 195, 195);
+    width: var(--container-width);
+    height: var(--container-height);
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    padding: var(--container-padding);
+    box-sizing: border-box;
+    gap: var(--container-gap);
+    border: var(--border-style);
+}
+
+.row {
+    width: 100%;
+    height: calc(100%/6);
+    display: flex;
+    gap: 16px;
+    justify-content: space-between;
+}
+
+#display {
+    flex-shrink: 0;
+    flex-grow: 2;
+    height: calc(100%/5);
+    background-color: white;
+    border-radius: var(--rounded-corners);
+    border: var(--border-style);
+    padding: 8px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    gap: 2px;
+}
+
+input {
+    border: none;
+    height: 50%;
+    text-align: right;
+    color: rgb(109, 109, 109);
+}
+
+#result {
+    height: 50%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+input, #result {
+    font-size: 20px;
+    box-sizing: border-box;
+}
+
+button {
+    flex: 1 1 0px;
+    font-size: 20px;
+    box-sizing: border-box;
+    border: var(--border-style);
+    border-radius: var(--rounded-corners);
+}
+
+#ac {
+    background-color: #f1f7b5;
+}
+
+#del {
+    background-color: #fd8a8a;
+}
