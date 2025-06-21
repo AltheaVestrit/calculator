@@ -39,16 +39,34 @@ function addToInput(x) {
     };
 };
 
+function matchExpression(str) {
+    return str.match(/^(\-*\d+(?:\.\d+)*)([\+\-\*\/])(\d+)$/);
+}
+
+function returnLastCharType(str) {
+    if (str.slice(-1).match(/[\*\/\+\-]/)) {
+        return "operator";
+    } else {
+        return "number";
+    }
+}
+
 digitButtons.forEach((button) => {
     button.addEventListener("click", (e) => {
+        if (output.textContent && !returnLastCharType(input.textContent) == "operator") {
+            input.textContent = "";
+            output.textContent = "";
+        };
         addToInput(e.target.textContent);
     });
 });
 
 operatorButtons.forEach((button) => {
     button.addEventListener("click", (e) => {
-        console.log(input.textContent[-1]);
-        if (input.textContent.slice(-1).match(/[\*\/\+\-]/)) {
+        if (matchExpression(input.textContent)) {
+            evaluate(input.textContent);
+            input.textContent = output.textContent;
+        } else if (returnLastCharType(input.textContent) == "operator") {
             input.textContent = input.textContent.slice(0, -1);
         }
         addToInput(e.target.textContent);
@@ -56,17 +74,18 @@ operatorButtons.forEach((button) => {
 });
 
 function evaluate(str) {
-    const matches = str.match(/^(\d+)([\+\-\*\/])(\d+)$/);
+    const matches = matchExpression(str);
     if (matches) {
         if (matches[2] == "/" && matches[3] == 0) {
-            output.textContent = "Oops, you created a black hole"
-        }
-        output.textContent = operate(matches[1], matches[3], matches[2]);
+            output.textContent = "Oops, you created a black hole!"
+        } else {
+            output.textContent = operate(matches[1], matches[3], matches[2]);
+        };
     } else if (str.match(/^\d+$/)) {
         output.textContent = input.textContent;
     } else {
         output.textContent = "ERROR"
-    }
+    };
 };
 
 equalButton.addEventListener("click", () => {
