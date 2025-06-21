@@ -31,6 +31,7 @@ const digitButtons = document.querySelectorAll(".digit-button");
 const operatorButtons = document.querySelectorAll(".operation");
 const equalButton = document.querySelector("#equal");
 const output = document.querySelector("#output");
+const acButton = document.querySelector("#ac");
 
 function addToInput(x) {
     if (input.textContent.length <= 25) {
@@ -46,17 +47,33 @@ digitButtons.forEach((button) => {
 
 operatorButtons.forEach((button) => {
     button.addEventListener("click", (e) => {
+        console.log(input.textContent[-1]);
+        if (input.textContent.slice(-1).match(/[\*\/\+\-]/)) {
+            input.textContent = input.textContent.slice(0, -1);
+        }
         addToInput(e.target.textContent);
     });
 });
 
 function evaluate(str) {
-    const matches = str.match(/^(\d+)([\+\-\*\/])(\d+)/);
+    const matches = str.match(/^(\d+)([\+\-\*\/])(\d+)$/);
     if (matches) {
+        if (matches[2] == "/" && matches[3] == 0) {
+            output.textContent = "Oops, you created a black hole"
+        }
         output.textContent = operate(matches[1], matches[3], matches[2]);
+    } else if (str.match(/^\d+$/)) {
+        output.textContent = input.textContent;
+    } else {
+        output.textContent = "ERROR"
     }
 };
 
-equalButton.addEventListener("click", (button) => {
+equalButton.addEventListener("click", () => {
         evaluate(input.textContent);
 });
+
+acButton.addEventListener("click", () => {
+    input.textContent = "";
+    output.textContent = "";
+})
