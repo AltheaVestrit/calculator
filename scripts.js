@@ -27,15 +27,36 @@ function operate(a, b, operator) {
 };
 
 const input = document.querySelector("#input");
+const digitButtons = document.querySelectorAll(".digit-button");
+const operatorButtons = document.querySelectorAll(".operation");
+const equalButton = document.querySelector("#equal");
+const output = document.querySelector("#output");
 
 function addToInput(x) {
-    input.textContent += x;
+    if (input.textContent.length <= 25) {
+        input.textContent += x;
+    };
 };
-
-const digitButtons = document.querySelectorAll(".digit-button, .operation");
 
 digitButtons.forEach((button) => {
     button.addEventListener("click", (e) => {
         addToInput(e.target.textContent);
     });
+});
+
+operatorButtons.forEach((button) => {
+    button.addEventListener("click", (e) => {
+        addToInput(e.target.textContent);
+    });
+});
+
+function evaluate(str) {
+    const matches = str.match(/^(\d+)([\+\-\*\/])(\d+)/);
+    if (matches) {
+        output.textContent = operate(matches[1], matches[3], matches[2]);
+    }
+};
+
+equalButton.addEventListener("click", (button) => {
+        evaluate(input.textContent);
 });
