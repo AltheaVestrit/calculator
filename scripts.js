@@ -123,5 +123,7 @@ document.addEventListener("keydown", (e) => {
         operatorPress(e.key);
     } else if (e.key == "=" || e.key == "Enter") {
         evaluate(input.textContent);
-    };
+    } else if (e.key == "backspace") {
+        delPress();
+    }
 })
