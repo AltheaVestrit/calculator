@@ -32,6 +32,7 @@ const operatorButtons = document.querySelectorAll(".operation");
 const equalButton = document.querySelector("#equal");
 const output = document.querySelector("#output");
 const acButton = document.querySelector("#ac");
+const delButton = document.querySelector("#del")
 
 function addToInput(x) {
     if (input.textContent.length <= 25) {
@@ -51,25 +52,39 @@ function returnLastCharType(str) {
     }
 }
 
+function digitPress(digit) {
+    if (output.textContent && !returnLastCharType(input.textContent) == "operator") {
+        input.textContent = "";
+        output.textContent = "";
+    };
+    addToInput(digit);
+};
+
+function operatorPress(operator) {
+    if (matchExpression(input.textContent)) {
+        evaluate(input.textContent);
+        input.textContent = output.textContent;
+    } else if (returnLastCharType(input.textContent) == "operator") {
+        input.textContent = input.textContent.slice(0, -1);
+    };
+    addToInput(operator);
+};
+
+function delPress() {
+    if (input.textContent.length > 0) {
+        input.textContent = input.textContent.slice(0, -1);
+    };
+};
+
 digitButtons.forEach((button) => {
     button.addEventListener("click", (e) => {
-        if (output.textContent && !returnLastCharType(input.textContent) == "operator") {
-            input.textContent = "";
-            output.textContent = "";
-        };
-        addToInput(e.target.textContent);
+        digitPress(e.target.textContent);
     });
 });
 
 operatorButtons.forEach((button) => {
     button.addEventListener("click", (e) => {
-        if (matchExpression(input.textContent)) {
-            evaluate(input.textContent);
-            input.textContent = output.textContent;
-        } else if (returnLastCharType(input.textContent) == "operator") {
-            input.textContent = input.textContent.slice(0, -1);
-        }
-        addToInput(e.target.textContent);
+        operatorPress(e.target.textContent);
     });
 });
 
@@ -79,9 +94,9 @@ function evaluate(str) {
         if (matches[2] == "/" && matches[3] == 0) {
             output.textContent = "Oops, you created a black hole!"
         } else {
-            output.textContent = operate(matches[1], matches[3], matches[2]);
+            output.textContent = operate(parseFloat(matches[1]), parseFloat(matches[3]), matches[2]);
         };
-    } else if (str.match(/^\d+$/)) {
+    } else if (str.match(/^\-*\d+$/)) {
         output.textContent = input.textContent;
     } else {
         output.textContent = "ERROR"
@@ -95,4 +110,18 @@ equalButton.addEventListener("click", () => {
 acButton.addEventListener("click", () => {
     input.textContent = "";
     output.textContent = "";
+});
+
+delButton.addEventListener("click", () => {
+    delPress();
+});
+
+document.addEventListener("keydown", (e) => {
+    if (e.key.match(/\d/)) {
+        digitPress(e.key);
+    } else if (e.key.match(/[\*\/\+\-]/)) {
+        operatorPress(e.key);
+    } else if (e.key == "=" || e.key == "Enter") {
+        evaluate(input.textContent);
+    };
 })
